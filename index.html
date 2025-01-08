@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLaMA Chat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f4f4f9;
+    }
+    #chat-container {
+      max-width: 600px;
+      margin: auto;
+    }
+    #messages {
+      border: 1px solid #ddd;
+      padding: 10px;
+      height: 300px;
+      overflow-y: scroll;
+      background: white;
+    }
+    .message {
+      margin: 5px 0;
+    }
+    .message.user {
+      text-align: right;
+      color: blue;
+    }
+    .message.bot {
+      text-align: left;
+      color: green;
+    }
+    #input-container {
+      display: flex;
+      margin-top: 10px;
+    }
+    #input-container input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px 0 0 5px;
+    }
+    #input-container button {
+      padding: 10px;
+      border: none;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+      border-radius: 0 5px 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-container">
+    <div id="messages"></div>
+    <div id="input-container">
+      <input type="text" id="input" placeholder="Type your message here...">
+      <button id="send">Send</button>
+    </div>
+  </div>
+  <script>
+    const input = document.getElementById("input");
+    const sendButton = document.getElementById("send");
+    const messagesDiv = document.getElementById("messages");
+
+    sendButton.addEventListener("click", async () => {
+      const userInput = input.value.trim();
+      if (!userInput) return;
+
+      // Display user message
+      const userMessageDiv = document.createElement("div");
+      userMessageDiv.className = "message user";
+      userMessageDiv.textContent = userInput;
+      messagesDiv.appendChild(userMessageDiv);
+
+      // Clear input
+      input.value = "";
+
+      // Send prompt to server
+      try {
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: userInput }),
+        });
+        const data = await response.json();
+
+        // Display bot response
+        const botMessageDiv = document.createElement("div");
+        botMessageDiv.className = "message bot";
+        botMessageDiv.textContent = data.response;
+        messagesDiv.appendChild(botMessageDiv);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    });
+  </script>
+</body>
+</html>

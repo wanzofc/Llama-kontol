@@ -14,7 +14,6 @@
             background-color: #f4f4f9;
             transition: background-color 0.3s, color 0.3s;
         }
-
         h1 {
             color: #333;
             margin-bottom: 20px;
@@ -23,7 +22,6 @@
             position: relative;
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.7); /* Glowing effect */
         }
-
         button {
             padding: 10px 20px;
             margin: 10px;
@@ -36,14 +34,11 @@
             transition: background-color 0.3s, transform 0.2s;
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Hover Effect */
         }
-
         button:hover {
             background-color: #0056b3;
             transform: scale(1.05);
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.8); /* Hover Effect */
         }
-
-        /* Parallax Effect */
         .parallax {
             position: absolute;
             top: 0;
@@ -57,7 +52,6 @@
             z-index: -1;
             animation: backgroundAnimation 10s infinite alternate; /* Background Animation */
         }
-
         @keyframes backgroundAnimation {
             0% {
                 transform: translateX(0);
@@ -66,8 +60,6 @@
                 transform: translateX(50%);
             }
         }
-
-        /* Sidebar */
         #sidebar {
             position: fixed;
             top: 20px;
@@ -85,13 +77,11 @@
             z-index: 2;
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
-
         #sidebar:hover {
             transform: rotate(360deg);
             background-color: #0056b3;
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
         }
-
         #sidebar-content {
             position: fixed;
             top: 80px;
@@ -106,7 +96,6 @@
             backdrop-filter: blur(10px);
             transition: opacity 0.3s ease-in-out;
         }
-
         #sidebar-content a,
         #sidebar-content button {
             display: block;
@@ -117,26 +106,20 @@
             border-radius: 5px;
             transition: background-color 0.3s, color 0.3s;
         }
-
         #sidebar-content a:hover,
         #sidebar-content button:hover {
             background-color: #007bff;
             color: white;
         }
-
-        /* Scroll Reveal Animation */
         .reveal {
             opacity: 0;
             transform: translateY(100px);
             transition: opacity 1s, transform 1s;
         }
-
         .reveal.show {
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* Dynamic API Results */
         .api-result {
             margin-top: 20px;
             padding: 20px;
@@ -145,35 +128,26 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
-
         .api-result h3 {
             margin-top: 0;
         }
-
-        /* Dark Mode */
         .dark-mode {
             background-color: #121212;
             color: #ffffff;
         }
-
         .dark-mode button {
             background-color: #444;
             color: white;
         }
-
         .dark-mode button:hover {
             background-color: #555;
         }
-
         .dark-mode #sidebar {
             background-color: #555;
         }
-
         .dark-mode #sidebar:hover {
             background-color: #333;
         }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
             button {
                 width: 90%;
@@ -190,8 +164,7 @@
 <body>
     <div class="parallax"></div>
     <h1>pilih apikey sesuka kamu</h1>
-    <p style="text-align:center; z-index: 2; position: relative;" class="reveal">Click a button to get an API key and download URL for the selected platform:</p>
-
+    <p style="text-align:center; z-index: 2; position: relative;" class="reveal">click a button to get an API key and download URL for the selected platform:</p>
     <div style="text-align: center; z-index: 2; position: relative;">
         <button onclick="showNotification('TikTok'); redirectWithLoading('/api/get-api-key/tiktok')">Get TikTok API Key</button>
         <button onclick="showNotification('Instagram'); redirectWithLoading('/api/get-api-key/instagram')">Get Instagram API Key</button>
@@ -199,43 +172,31 @@
         <button onclick="showNotification('Twitter'); redirectWithLoading('/api/get-api-key/twitter')">Get Twitter API Key</button>
         <button onclick="showNotification('Facebook'); redirectWithLoading('/api/get-api-key/facebook')">Get Facebook API Key</button>
     </div>
-
-    <!-- Dynamic API Results (Example) -->
     <div class="api-result">
         <h3>API Result</h3>
-        <p>Here are the API results...</p>
+        <p>tunggu...</p>
     </div>
-
-    <!-- Loading Animation -->
     <div id="loading-spinner">
         <p></p>
         <div class="spinner"></div>
     </div>
-
-    <!-- Sidebar -->
     <div id="sidebar">☰</div>
     <div id="sidebar-content">
-        <a href="#">Home</a>
+        <a href="index.html">Home</a>
         <a href="#">About</a>
         <a href="kontak.html">Contact</a>
         <button id="theme-toggle">Switch Theme</button>
     </div>
-
     <script>
-        // Loading Animation
         function redirectWithLoading(url) {
             document.getElementById('loading-spinner').style.display = 'block';
             setTimeout(() => {
                 window.location.href = url;
             }, 2000);
         }
-
-        // Pop-Up Notification
         function showNotification(platform) {
             alert(`Redirecting to get ${platform} API key...`);
         }
-
-        // Sidebar Toggle
         const sidebar = document.getElementById("sidebar");
         const sidebarContent = document.getElementById("sidebar-content");
 
@@ -243,14 +204,10 @@
             sidebarContent.style.display =
                 sidebarContent.style.display === "block" ? "none" : "block";
         });
-
-        // Dark Mode / Light Mode
         const themeToggle = document.getElementById('theme-toggle');
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
         });
-
-        // Scroll Reveal Animation
         window.addEventListener('scroll', () => {
             const reveals = document.querySelectorAll('.reveal');
             for (let i = 0; i < reveals.length; i++) {
@@ -263,8 +220,6 @@
                 }
             }
         });
-
-        // Progressive Notifications
         function showProgressiveNotification(message) {
             const notification = document.createElement('div');
             notification.style.position = 'fixed';
@@ -276,24 +231,16 @@
             notification.style.borderRadius = '5px';
             notification.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)';
             notification.innerText = message;
-
             document.body.appendChild(notification);
-
             setTimeout(() => {
                 notification.style.opacity = 0;
             }, 2000);
-
             setTimeout(() => {
                 notification.remove();
             }, 2500);
         }
-
-        // Example of Progressive Notification
-        showProgressiveNotification("Welcome to api wanzofc!");
-
-        // Add to Home Screen (PWA feature)
+        showProgressiveNotification("welcome to api wanzofc!");
         if (window.matchMedia('(display-mode: standalone)').matches) {
-            // User is using the app in standalone mode
         } else {
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
@@ -306,34 +253,26 @@
                 });
             });
         }
-
-        // Voice Command (Speech Recognition)
         if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
             const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
             recognition.lang = 'en-US';
             recognition.continuous = true;
-
             recognition.onstart = () => {
                 console.log("Voice recognition started");
             };
-
             recognition.onresult = (event) => {
                 const speechResult = event.results[event.results.length - 1][0].transcript;
                 console.log("Speech result:", speechResult);
-                // Add logic to process the command based on speechResult
             };
-
             recognition.onerror = (event) => {
                 console.log("Speech recognition error:", event.error);
             };
-
             recognition.start();
         } else {
             console.log("Speech recognition is not supported in this browser");
         }
     </script>
 <script>
-    // Mendaftarkan Service Worker
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('/service-worker.js')

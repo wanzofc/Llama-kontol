@@ -86,9 +86,14 @@ app.get('/api/download/facebook', validateApiKey, async (req, res) => {
     await downloadMedia(mediaUrl, res);
 });
 
+// API untuk mendapatkan API Key Twitter
+app.get('/api/get-api-key/twitter', validateApiKey, (req, res) => {
+    res.json({ apiKey: 'wanzofckey' });
+});
+
 // Membuat server HTTPS dan HTTP
 // const httpsOptions = {
- //   key: fs.readFileSync(path.resolve('key.pem')), // Membaca SSL Key dari root
+//    key: fs.readFileSync(path.resolve('key.pem')), // Membaca SSL Key dari root
 //    cert: fs.readFileSync(path.resolve('cert.pem')) // Membaca SSL Cert dari root
 //};
 
@@ -99,5 +104,5 @@ http.createServer(app).listen(port, () => {
 
 // Server HTTPS
 //https.createServer(httpsOptions, app).listen(8443, () => {
-  //console.log(`Server HTTPS berjalan di https://localhost:8080`);
-//});//
+//  console.log(`Server HTTPS berjalan di https://localhost:8080`);
+//});

@@ -4,35 +4,334 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get API Key</title>
+    <link rel="manifest" href="/manifest.json"> <!-- PWA -->
     <style>
+        /* Base Styles */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #f4f4f9;
+            transition: background-color 0.3s, color 0.3s;
         }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7); /* Glowing effect */
+        }
+
         button {
             padding: 10px 20px;
             margin: 10px;
-            background-color: #4CAF50;
+            background-color: #007bff;
             color: white;
             border: none;
             cursor: pointer;
             font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Hover Effect */
         }
+
         button:hover {
-            background-color: #45a049;
+            background-color: #0056b3;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8); /* Hover Effect */
+        }
+
+        /* Parallax Effect */
+        .parallax {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url('https://source.unsplash.com/1600x900/?nature,abstract');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            z-index: -1;
+            animation: backgroundAnimation 10s infinite alternate; /* Background Animation */
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(50%);
+            }
+        }
+
+        /* Sidebar */
+        #sidebar {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            z-index: 2;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        #sidebar:hover {
+            transform: rotate(360deg);
+            background-color: #0056b3;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        }
+
+        #sidebar-content {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Glassmorphism */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: none;
+            padding: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 3;
+            backdrop-filter: blur(10px);
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        #sidebar-content a,
+        #sidebar-content button {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        #sidebar-content a:hover,
+        #sidebar-content button:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(100px);
+            transition: opacity 1s, transform 1s;
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Dynamic API Results */
+        .api-result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .api-result h3 {
+            margin-top: 0;
+        }
+
+        /* Dark Mode */
+        .dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .dark-mode button {
+            background-color: #444;
+            color: white;
+        }
+
+        .dark-mode button:hover {
+            background-color: #555;
+        }
+
+        .dark-mode #sidebar {
+            background-color: #555;
+        }
+
+        .dark-mode #sidebar:hover {
+            background-color: #333;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            button {
+                width: 90%;
+                font-size: 14px;
+            }
+
+            #sidebar {
+                width: 40px;
+                height: 40px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="parallax"></div>
     <h1>Get API Key for Social Media Platforms</h1>
-    <p>Click a button to get an API key and download URL for the selected platform:</p>
+    <p style="text-align:center; z-index: 2; position: relative;" class="reveal">Click a button to get an API key and download URL for the selected platform:</p>
 
-    <button onclick="window.location.href='/api/get-api-key/tiktok'">Get TikTok API Key</button>
-    <button onclick="window.location.href='/api/get-api-key/instagram'">Get Instagram API Key</button>
-    <button onclick="window.location.href='/api/get-api-key/youtube'">Get YouTube API Key</button>
-    <button onclick="window.location.href='/api/get-api-key/twitter'">Get Twitter API Key</button>
-    <button onclick="window.location.href='/api/get-api-key/facebook'">Get Facebook API Key</button>
+    <div style="text-align: center; z-index: 2; position: relative;">
+        <button onclick="showNotification('TikTok'); redirectWithLoading('/api/get-api-key/tiktok')">Get TikTok API Key</button>
+        <button onclick="showNotification('Instagram'); redirectWithLoading('/api/get-api-key/instagram')">Get Instagram API Key</button>
+        <button onclick="showNotification('YouTube'); redirectWithLoading('/api/get-api-key/youtube')">Get YouTube API Key</button>
+        <button onclick="showNotification('Twitter'); redirectWithLoading('/api/get-api-key/twitter')">Get Twitter API Key</button>
+        <button onclick="showNotification('Facebook'); redirectWithLoading('/api/get-api-key/facebook')">Get Facebook API Key</button>
+    </div>
 
+    <!-- Dynamic API Results (Example) -->
+    <div class="api-result">
+        <h3>API Result</h3>
+        <p>Here are the API results...</p>
+    </div>
+
+    <!-- Loading Animation -->
+    <div id="loading-spinner">
+        <p></p>
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar">☰</div>
+    <div id="sidebar-content">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="kontak.html">Contact</a>
+        <button id="theme-toggle">Switch Theme</button>
+    </div>
+
+    <script>
+        // Loading Animation
+        function redirectWithLoading(url) {
+            document.getElementById('loading-spinner').style.display = 'block';
+            setTimeout(() => {
+                window.location.href = url;
+            }, 2000);
+        }
+
+        // Pop-Up Notification
+        function showNotification(platform) {
+            alert(`Redirecting to get ${platform} API key...`);
+        }
+
+        // Sidebar Toggle
+        const sidebar = document.getElementById("sidebar");
+        const sidebarContent = document.getElementById("sidebar-content");
+
+        sidebar.addEventListener("click", () => {
+            sidebarContent.style.display =
+                sidebarContent.style.display === "block" ? "none" : "block";
+        });
+
+        // Dark Mode / Light Mode
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // Scroll Reveal Animation
+        window.addEventListener('scroll', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 150) {
+                    reveals[i].classList.add('show');
+                } else {
+                    reveals[i].classList.remove('show');
+                }
+            }
+        });
+
+        // Progressive Notifications
+        function showProgressiveNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.left = '20px';
+            notification.style.backgroundColor = '#007bff';
+            notification.style.color = 'white';
+            notification.style.padding = '10px';
+            notification.style.borderRadius = '5px';
+            notification.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)';
+            notification.innerText = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.opacity = 0;
+            }, 2000);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 2500);
+        }
+
+        // Example of Progressive Notification
+        showProgressiveNotification("Welcome to api wanzofc!");
+
+        // Add to Home Screen (PWA feature)
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            // User is using the app in standalone mode
+        } else {
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                const installButton = document.createElement('button');
+                installButton.textContent = 'Install App';
+                document.body.appendChild(installButton);
+                installButton.addEventListener('click', () => {
+                    e.prompt();
+                    installButton.style.display = 'none';
+                });
+            });
+        }
+
+        // Voice Command (Speech Recognition)
+        if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.continuous = true;
+
+            recognition.onstart = () => {
+                console.log("Voice recognition started");
+            };
+
+            recognition.onresult = (event) => {
+                const speechResult = event.results[event.results.length - 1][0].transcript;
+                console.log("Speech result:", speechResult);
+                // Add logic to process the command based on speechResult
+            };
+
+            recognition.onerror = (event) => {
+                console.log("Speech recognition error:", event.error);
+            };
+
+            recognition.start();
+        } else {
+            console.log("Speech recognition is not supported in this browser");
+        }
+    </script>
 </body>
 </html>

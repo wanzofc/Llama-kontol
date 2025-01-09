@@ -7,6 +7,9 @@ const port = 8080;
 // Menggunakan express untuk parsing JSON
 app.use(express.json());
 
+// Menyajikan file statis seperti `awan.js` dan `style.css`
+app.use(express.static(path.join(__dirname))); // Folder root untuk mengakses file
+
 // Halaman utama untuk index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
@@ -104,6 +107,20 @@ app.get('/kontak.html', (req, res) => {
             res.status(500).send('Terjadi kesalahan saat membaca file.');
         } else {
             res.type('text/html'); // Set header untuk file HTML
+            res.send(data); // Kirimkan isi file
+        }
+    });
+});
+
+// API untuk membaca _config.yml
+app.get('/_config.yml', (req, res) => {
+    const filePath = path.join(__dirname, '_config.yml');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Gagal membaca file:', err);
+            res.status(500).send('Terjadi kesalahan saat membaca file.');
+        } else {
+            res.type('application/x-yaml'); // Set header untuk file YAML
             res.send(data); // Kirimkan isi file
         }
     });

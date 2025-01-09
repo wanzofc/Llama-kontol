@@ -48,7 +48,11 @@ app.post('/chat', async (req, res) => {
     res.json({ reply });
   } catch (error) {
     console.error('Error from OpenAI:', error.response?.data || error.message);
-    res.status(500).json({ reply: 'Maaf, ada masalah dengan server AI. Coba lagi nanti.' });
+    
+    // Menangani error lebih spesifik
+    const errorMessage = error.response?.data?.error?.message || 'Maaf, ada masalah dengan server AI. Coba lagi nanti.';
+    
+    res.status(500).json({ reply: errorMessage });
   }
 });
 

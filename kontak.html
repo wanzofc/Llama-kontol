@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CONTACT WANZOFC</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet"
+  href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css">
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("XtnarVmkEGO_YZMr4"); // ganti jadi public apikey lu
+    })();
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1 class="brand"><span>contact</span> dukungan</h1>
+    <div class="wrapper animated bounceInLeft">
+      <div class="company-info">
+        <h3>Awan Berlian</h3>
+        <ul>
+          <li><i class="fa fa-road"></i> 01 03 2008 DKI JAKARTA</li>
+          <li><i class="fa fa-phone"></i> (62) 895402567224</li>
+          <li><i class="fa fa-envelope"></i>wanzbrayy010308@gmail.com</li>
+        </ul>
+      </div>
+      <div class="contact">
+        <h3>dukungan</h3>
+        <form id="contact-form">
+          <p>
+            <label>name</label>
+            <input type="text" name="name" required>
+          </p>
+          <p>
+            <label>perusahaan</label>
+            <input type="text" name="company">
+          </p>
+          <p>
+            <label>email kamu</label>
+            <input type="email" name="email" required>
+          </p>
+          <p>
+            <label>no telpon</label>
+            <input type="text" name="phone">
+          </p>
+          <p class="full">
+            <label>pesan</label>
+            <textarea name="message" rows="5" required></textarea>
+          </p>
+          <p class="full">
+            <button type="submit">kirim</button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="awan.js"></script>
+</body>
+</html>

@@ -87,10 +87,10 @@ app.get('/api/download/facebook', validateApiKey, async (req, res) => {
 });
 
 // Membuat server HTTPS dan HTTP
-const httpsOptions = {
-    key: fs.readFileSync(path.resolve('key.pem')), // Membaca SSL Key dari root
-    cert: fs.readFileSync(path.resolve('cert.pem')) // Membaca SSL Cert dari root
-};
+// const httpsOptions = {
+ //   key: fs.readFileSync(path.resolve('key.pem')), // Membaca SSL Key dari root
+//    cert: fs.readFileSync(path.resolve('cert.pem')) // Membaca SSL Cert dari root
+//};
 
 // Server HTTP
 http.createServer(app).listen(port, () => {
@@ -98,6 +98,6 @@ http.createServer(app).listen(port, () => {
 });
 
 // Server HTTPS
-https.createServer(httpsOptions, app).listen(8443, () => {
-    console.log(`Server HTTPS berjalan di https://localhost:8080`);
-});
+//https.createServer(httpsOptions, app).listen(8443, () => {
+  //console.log(`Server HTTPS berjalan di https://localhost:8080`);
+//});//

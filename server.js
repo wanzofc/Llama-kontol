@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 8080;
+const path = require('path'); // Untuk memberikan file statis
 
 // Menggunakan express untuk parsing JSON
 app.use(express.json());
@@ -63,6 +64,17 @@ app.get('/api/get-api-key/facebook', (req, res) => {
         downloadUrl: "https://api.facebook.com/download"
     };
     res.json(response);
+});
+
+// Endpoint untuk memberikan Postman Collection
+app.get('/api/postman-collection', (req, res) => {
+    const filePath = path.resolve(__dirname, 'Postman_Collection_Video_Downloader.json');
+    res.download(filePath, 'Postman_Collection_Video_Downloader.json', (err) => {
+        if (err) {
+            console.error('Gagal mengunduh file:', err);
+            res.status(500).send('Terjadi kesalahan saat mengunduh file.');
+        }
+    });
 });
 
 // Menjalankan server

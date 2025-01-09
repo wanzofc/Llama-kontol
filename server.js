@@ -1,19 +1,20 @@
 const express = require('express');
 const path = require('path');
+const axios = require('axios');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware untuk parsing JSON
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Simulasi API Key
-const MOCK_API_KEY = 'wanzofc'; // Ganti dengan proses scraping jika diperlukan
+// Simulasi API Key yang di-share kepada pengguna
+const SHARED_API_KEY = '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';
 
-// Endpoint untuk mendapatkan API Key
-app.get('/wanzofc', (req, res) => {
-  res.json({ apiKey: MOCK_API_KEY });
+// Endpoint untuk memberikan API Key ke frontend
+app.get('/apikey', (req, res) => {
+  res.json({ apiKey: SHARED_API_KEY });
 });
 
 // Endpoint untuk halaman utama
@@ -21,31 +22,37 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Endpoint untuk chat interaktif
-app.post('/chat', (req, res) => {
-  const userMessage = req.body.message.toLowerCase();
-  let reply;
+// Endpoint untuk chat
+app.post('/chat', async (req, res) => {
+  const { message } = req.body;
 
-  // Logika respons dinamis berdasarkan kata kunci
-  if (userMessage.includes('apikey')) {
-    reply = `API Key Anda adalah: ${MOCK_API_KEY}`;
-  } else if (userMessage.includes('halo') || userMessage.includes('hi')) {
-    reply = 'Halo! Ada yang bisa saya bantu?';
-  } else if (userMessage.includes('terima kasih') || userMessage.includes('thank you')) {
-    reply = 'Sama-sama! Semoga harimu menyenangkan!';
-  } else if (userMessage.includes('apa itu api')) {
-    reply = 'API adalah antarmuka yang memungkinkan dua aplikasi berbicara satu sama lain. Apakah Anda butuh penjelasan lebih lanjut?';
-  } else if (userMessage.includes('openai') || userMessage.includes('ai')) {
-    reply = 'OpenAI adalah perusahaan riset AI yang membuat model seperti ChatGPT. Apa yang ingin Anda ketahui tentang OpenAI?';
-  } else {
-    reply = 'Maaf, saya tidak mengerti. Coba tanyakan sesuatu tentang API Key atau OpenAI.';
+  try {
+    // Kirim permintaan ke OpenAI API
+    const response = await axios.post(
+      'https://api.openai.com/v1/chat/completions',
+      {
+        model: 'gpt-3.5-turbo', // Model AI
+        messages: [{ role: 'user', content: message }],
+        max_tokens: 100, // Batasi jumlah token
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${SHARED_API_KEY}`, // Gunakan API Key
+        },
+      }
+    );
+
+    // Balasan dari OpenAI
+    const reply = response.data.choices[0].message.content.trim();
+    res.json({ reply });
+  } catch (error) {
+    console.error('Error from OpenAI:', error.response?.data || error.message);
+    res.status(500).json({ reply: 'Maaf, ada masalah dengan server AI. Coba lagi nanti.' });
   }
-
-  // Kirimkan balasan ke klien
-  res.json({ reply });
 });
 
-// Menjalankan server
+// Jalankan server
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });

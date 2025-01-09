@@ -1,134 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat Llama</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #1e1e2f;
-      color: #fff;
-    }
-    #chatBox {
-      width: 90%;
-      max-width: 600px;
-      height: 400px;
-      border: 1px solid #444;
-      overflow-y: scroll;
-      padding: 10px;
-      background: #2e2e3f;
-      margin-bottom: 10px;
-    }
-    .message {
-      margin: 5px 0;
-    }
-    .user {
-      text-align: right;
-      color: cyan;
-    }
-    .server {
-      text-align: left;
-      color: lime;
-    }
-    #controls {
-      width: 90%;
-      max-width: 600px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    input, button {
-      padding: 10px;
-      font-size: 16px;
-    }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rest api</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-  <div id="chatBox"></div>
-  <div id="controls">
-    <button id="getApiKey">Dapatkan API Key</button>
-    <input id="userInput" type="text" placeholder="Ketik pesan Anda..." />
-    <button onclick="sendMessage()">Kirim</button>
-  </div>
+    <h1>Get API Key</h1>
+    <p>Click a button to get an API key for the selected social media:</p>
 
-  <script>
-    const chatBox = document.getElementById('chatBox');
-    const userInput = document.getElementById('userInput');
-    const getApiKeyButton = document.getElementById('getApiKey');
-    let apiKey = '';
+    <button onclick="window.location.href='/api/get-api-key/tiktok'">Get TikTok API Key</button>
+    <button onclick="window.location.href='/api/get-api-key/instagram'">Get Instagram API Key</button>
+    <button onclick="window.location.href='/api/get-api-key/youtube'">Get YouTube API Key</button>
+    <button onclick="window.location.href='/api/get-api-key/pinterest'">Get Pinterest API Key</button>
+    <button onclick="window.location.href='/api/get-api-key/twitter'">Get Twitter API Key</button>
+    <button onclick="window.location.href='/api/get-api-key/facebook'">Get Facebook API Key</button>
 
-    function appendMessage(message, type) {
-      const messageElement = document.createElement('div');
-      messageElement.className = `message ${type}`;
-      messageElement.textContent = message;
-      chatBox.appendChild(messageElement);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    // Dapatkan API Key
-    getApiKeyButton.addEventListener('click', async () => {
-      try {
-        const response = await fetch('/apikey');
-        const data = await response.json();
-        apiKey = data.apiKey;
-        appendMessage(`API Key: ${apiKey}`, 'server');
-      } catch (error) {
-        appendMessage('Gagal mendapatkan API Key.', 'server');
-        console.error('Error fetching API Key:', error);
-      }
-    });
-
-    // Kirim pesan
-    async function sendMessage() {
-      const message = userInput.value.trim();
-
-      if (!message) {
-        alert('Masukkan pesan sebelum mengirim.');
-        return;
-      }
-
-      if (!apiKey) {
-        alert('Klik tombol "Dapatkan API Key" terlebih dahulu.');
-        return;
-      }
-
-      // Tampilkan pesan pengguna
-      appendMessage(message, 'user');
-
-      try {
-        // Kirim ke server
-        const response = await fetch('/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message }),
-        });
-        const data = await response.json();
-
-        // Tampilkan respons dari server
-        appendMessage(data.reply, 'server');
-      } catch (error) {
-        appendMessage('Gagal menghubungi server.', 'server');
-        console.error('Error:', error);
-      }
-
-      userInput.value = '';
-    }
-  </script>
 </body>
 </html>

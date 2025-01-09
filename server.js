@@ -54,21 +54,21 @@ const validateApiKey = (req, res, next) => {
 // API untuk mengunduh media dari TikTok
 app.get('/api/download/tiktok', validateApiKey, async (req, res) => {
     const mediaUrl = req.query.url; // URL media TikTok dari query parameter
-    if (!mediaUrl) return res.status(400).json({ error: 'URL tidak diberikan.' });
+    if (!mediaUrl) return res.status(400).json({ error: 'https://vt.tiktok.com/ZS6rbEMpN/.' });
     await downloadMedia(mediaUrl, res);
 });
 
 // API untuk mengunduh media dari Instagram
 app.get('/api/download/instagram', validateApiKey, async (req, res) => {
     const mediaUrl = req.query.url; // URL media Instagram dari query parameter
-    if (!mediaUrl) return res.status(400).json({ error: 'URL tidak diberikan.' });
+    if (!mediaUrl) return res.status(400).json({ error: 'https://www.instagram.com/reel/DDLdn8tPdae/?igsh=b2lsanEwbG84azYy.' });
     await downloadMedia(mediaUrl, res);
 });
 
 // API untuk mengunduh media dari YouTube
 app.get('/api/download/youtube', validateApiKey, async (req, res) => {
     const mediaUrl = req.query.url; // URL media YouTube dari query parameter
-    if (!mediaUrl) return res.status(400).json({ error: 'URL tidak diberikan.' });
+    if (!mediaUrl) return res.status(400).json({ error: 'https://youtube.com/watch?v=0Qsrx04Efns.' });
     await downloadMedia(mediaUrl, res);
 });
 
@@ -99,5 +99,5 @@ http.createServer(app).listen(port, () => {
 
 // Server HTTPS
 https.createServer(httpsOptions, app).listen(8443, () => {
-    console.log(`Server HTTPS berjalan di https://localhost:8443`);
+    console.log(`Server HTTPS berjalan di https://localhost:8080`);
 });

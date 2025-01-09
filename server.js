@@ -1,8 +1,6 @@
 const express = require('express');
 const app = express();
 const port = 8080;
-const path = require('path'); // Untuk memberikan file statis
-const fs = require('fs'); // Untuk membaca file JSON
 
 // Menggunakan express untuk parsing JSON
 app.use(express.json());
@@ -67,16 +65,74 @@ app.get('/api/get-api-key/facebook', (req, res) => {
     res.json(response);
 });
 
-// Endpoint untuk memberikan Postman Collection dalam respons JSON
+// Endpoint untuk memberikan Postman Collection dengan URL dinamis
 app.get('/api/postman-collection', (req, res) => {
-    const filePath = path.resolve(__dirname, 'Postman_Collection_Video_Downloader.json');
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            console.error('Gagal membaca file:', err);
-            return res.status(500).json({ error: 'Terjadi kesalahan saat membaca file JSON.' });
-        }
-        res.json(JSON.parse(data)); // Menampilkan isi JSON langsung
-    });
+    const baseUrl = `${req.protocol}://${req.get('host')}`; // Mendapatkan domain/IP dinamis
+    const postmanCollection = {
+        info: {
+            name: "Video Downloader API",
+            schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+        },
+        item: [
+            {
+                name: "Get API Key TikTok",
+                request: {
+                    method: "GET",
+                    url: {
+                        raw: `${baseUrl}/api/get-api-key/tiktok`,
+                        host: baseUrl,
+                        path: "/api/get-api-key/tiktok"
+                    }
+                }
+            },
+            {
+                name: "Get API Key Instagram",
+                request: {
+                    method: "GET",
+                    url: {
+                        raw: `${baseUrl}/api/get-api-key/instagram`,
+                        host: baseUrl,
+                        path: "/api/get-api-key/instagram"
+                    }
+                }
+            },
+            {
+                name: "Get API Key YouTube",
+                request: {
+                    method: "GET",
+                    url: {
+                        raw: `${baseUrl}/api/get-api-key/youtube`,
+                        host: baseUrl,
+                        path: "/api/get-api-key/youtube"
+                    }
+                }
+            },
+            {
+                name: "Get API Key Twitter",
+                request: {
+                    method: "GET",
+                    url: {
+                        raw: `${baseUrl}/api/get-api-key/twitter`,
+                        host: baseUrl,
+                        path: "/api/get-api-key/twitter"
+                    }
+                }
+            },
+            {
+                name: "Get API Key Facebook",
+                request: {
+                    method: "GET",
+                    url: {
+                        raw: `${baseUrl}/api/get-api-key/facebook`,
+                        host: baseUrl,
+                        path: "/api/get-api-key/facebook"
+                    }
+                }
+            }
+        ]
+    };
+
+    res.json(postmanCollection); // Menampilkan JSON dinamis langsung
 });
 
 // Menjalankan server

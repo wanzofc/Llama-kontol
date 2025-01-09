@@ -105,37 +105,38 @@
     </div>
   </div>
 
-  <script>
-    // Fungsi untuk mendapatkan API Key
-    async function fetchAPIKey() {
-      try {
-        const response = await fetch('/wanzofc');
-        const data = await response.json();
-        document.getElementById('apiKey').value = data.apiKey;
-      } catch (error) {
-        console.error('Gagal mendapatkan API Key:', error);
-      }
+<script>
+  // Fungsi untuk mendapatkan API Key
+  async function fetchAPIKey() {
+    try {
+      const response = await fetch('/wanzofc');
+      const data = await response.json();
+      document.getElementById('apiKey').value = data.apiKey;
+    } catch (error) {
+      console.error('Gagal mendapatkan API Key:', error);
     }
+  }
 
-    // Fungsi untuk menyalin API Key
-    function copyAPIKey() {
-      const apiKeyInput = document.getElementById('apiKey');
-      apiKeyInput.select();
-      document.execCommand('copy');
-      alert('API Key berhasil disalin!');
-    }
+  // Fungsi untuk menyalin API Key
+  function copyAPIKey() {
+    const apiKeyInput = document.getElementById('apiKey');
+    apiKeyInput.select();
+    document.execCommand('copy');
+    alert('API Key berhasil disalin!');
+  }
 
-    // Fungsi untuk chat
-    const chatBox = document.getElementById('chatBox');
-    const userInput = document.getElementById('userInput');
+  // Fungsi untuk chat
+  const chatBox = document.getElementById('chatBox');
+  const userInput = document.getElementById('userInput');
 
-    async function sendMessage() {
-      const message = userInput.value.trim();
-      if (!message) return;
+  async function sendMessage() {
+    const message = userInput.value.trim();
+    if (!message) return;
 
-      // Tampilkan pesan pengguna
-      appendMessage(message, 'user');
+    // Tampilkan pesan pengguna
+    appendMessage(message, 'user');
 
+    try {
       // Kirim pesan ke server
       const response = await fetch('/chat', {
         method: 'POST',
@@ -146,20 +147,24 @@
 
       // Tampilkan balasan dari server
       appendMessage(data.reply, 'server');
-
-      userInput.value = '';
+    } catch (error) {
+      appendMessage('Gagal menghubungi server.', 'server');
+      console.error('Error:', error);
     }
 
-    function appendMessage(message, type) {
-      const messageElement = document.createElement('div');
-      messageElement.className = `message ${type}`;
-      messageElement.textContent = message;
-      chatBox.appendChild(messageElement);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
+    userInput.value = '';
+  }
 
-    // Panggil fungsi untuk mendapatkan API Key saat halaman dimuat
-    fetchAPIKey();
-  </script>
+  function appendMessage(message, type) {
+    const messageElement = document.createElement('div');
+    messageElement.className = `message ${type}`;
+    messageElement.textContent = message;
+    chatBox.appendChild(messageElement);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  // Panggil fungsi untuk mendapatkan API Key saat halaman dimuat
+  fetchAPIKey();
+</script>
 </body>
 </html>

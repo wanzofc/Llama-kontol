@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const path = require('path');
+const fs = require('fs'); // Modul untuk membaca file
 const port = 8080;
 
 // Menggunakan express untuk parsing JSON
@@ -7,7 +9,7 @@ app.use(express.json());
 
 // Halaman utama untuk index.html
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // API untuk mendapatkan API key TikTok
@@ -63,6 +65,48 @@ app.get('/api/get-api-key/facebook', (req, res) => {
         downloadUrl: "https://api.facebook.com/download"
     };
     res.json(response);
+});
+
+// API untuk membaca service-worker.js
+app.get('/service-worker.js', (req, res) => {
+    const filePath = path.join(__dirname, 'service-worker.js');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Gagal membaca file:', err);
+            res.status(500).send('Terjadi kesalahan saat membaca file.');
+        } else {
+            res.type('application/javascript'); // Set header untuk file JS
+            res.send(data); // Kirimkan isi file
+        }
+    });
+});
+
+// API untuk membaca manifest.json
+app.get('/manifest.json', (req, res) => {
+    const filePath = path.join(__dirname, 'manifest.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Gagal membaca file:', err);
+            res.status(500).send('Terjadi kesalahan saat membaca file.');
+        } else {
+            res.type('application/json'); // Set header untuk file JSON
+            res.send(data); // Kirimkan isi file
+        }
+    });
+});
+
+// API untuk membaca kontak.html
+app.get('/kontak.html', (req, res) => {
+    const filePath = path.join(__dirname, 'kontak.html');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Gagal membaca file:', err);
+            res.status(500).send('Terjadi kesalahan saat membaca file.');
+        } else {
+            res.type('text/html'); // Set header untuk file HTML
+            res.send(data); // Kirimkan isi file
+        }
+    });
 });
 
 // Endpoint untuk memberikan Postman Collection dengan URL dinamis

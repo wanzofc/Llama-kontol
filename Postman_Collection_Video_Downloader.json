@@ -1,0 +1,78 @@
+{
+  "info": {
+    "name": "Video Downloader API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get API Key TikTok",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/get-api-key/tiktok",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "get-api-key", "tiktok"]
+        }
+      }
+    },
+    {
+      "name": "Get API Key Instagram",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/get-api-key/instagram",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "get-api-key", "instagram"]
+        }
+      }
+    },
+    {
+      "name": "Get API Key YouTube",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/get-api-key/youtube",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "get-api-key", "youtube"]
+        }
+      }
+    },
+    {
+      "name": "Get API Key Twitter",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/get-api-key/twitter",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "get-api-key", "twitter"]
+        }
+      }
+    },
+    {
+      "name": "Get API Key Facebook",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/get-api-key/facebook",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "get-api-key", "facebook"]
+        }
+      }
+    }
+  ]
+    }

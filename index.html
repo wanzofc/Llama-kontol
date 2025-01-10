@@ -76,6 +76,57 @@
                 }
             }
         });
+        function showProgressiveNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.left = '20px';
+            notification.style.backgroundColor = '#007bff';
+            notification.style.color = 'white';
+            notification.style.padding = '10px';
+            notification.style.borderRadius = '5px';
+            notification.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)';
+            notification.innerText = message;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.style.opacity = 0;
+            }, 2000);
+            setTimeout(() => {
+                notification.remove();
+            }, 2500);
+        }
+        showProgressiveNotification("welcome to api wanzofc!");
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+        } else {
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                const installButton = document.createElement('button');
+                installButton.textContent = 'Install App';
+                document.body.appendChild(installButton);
+                installButton.addEventListener('click', () => {
+                    e.prompt();
+                    installButton.style.display = 'none';
+                });
+            });
+        }
+        if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.continuous = true;
+            recognition.onstart = () => {
+                console.log("Voice recognition started");
+            };
+            recognition.onresult = (event) => {
+                const speechResult = event.results[event.results.length - 1][0].transcript;
+                console.log("Speech result:", speechResult);
+            };
+            recognition.onerror = (event) => {
+                console.log("Speech recognition error:", event.error);
+            };
+            recognition.start();
+        } else {
+            console.log("Speech recognition is not supported in this browser");
+        }
     </script>
 <script>
     if ('serviceWorker' in navigator) {

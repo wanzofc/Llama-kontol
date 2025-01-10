@@ -29,12 +29,11 @@
         <button onclick="window.location.href='/api-docs';">View API Documentation</button>
     </div>
     <div class="api-result">
-        <h3>API Result</h3>
-        <p>tunggu...</p>
-    </div>
-    <div id="loading-spinner">
-        <p></p>
-        <div class="spinner"></div>
+    <h3>API Result</h3>
+    <p id="loading-text">Tunggu...</p>
+    <div id="api-result-content"></div>
+</div>
+<button id="load-api-btn">Minta Data API</button>
     </div>
     <div id="sidebar">☰</div>
     <div id="sidebar-content">
@@ -140,6 +139,32 @@
             });
         });
     }
+</script>
+<script>
+let requestCount = 0;
+const maxRequests = 1000;  
+const apiResultDiv = document.getElementById('api-result-content');
+const loadingText = document.getElementById('loading-text');
+const loadApiBtn = document.getElementById('load-api-btn');
+
+loadApiBtn.addEventListener('click', () => {
+    if (requestCount >= maxRequests) {
+        alert('Batas permintaan API tercapai. tunggu 15 menit.');
+        return;
+    }
+    requestCount++;
+    loadingText.innerText = 'Memuat...';
+    fetch('/get-api-data')
+        .then(response => response.json())
+        .then(data => {
+            apiResultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            loadingText.innerText = 'Selesai memuat!';
+        })
+        .catch(error => {
+            console.error('Terjadi kesalahan:', error);
+            loadingText.innerText = 'Gagal memuat data.';
+        });
+});
 </script>
 <script>
     // Periksa koneksi internet

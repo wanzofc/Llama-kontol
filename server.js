@@ -1,4 +1,5 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const path = require('path');
 const fs = require('fs');
 const swaggerDocs = require('./swagger'); // Swagger Docs
@@ -216,6 +217,32 @@ app.get('/api/get-api-key/instagram', (req, res) => {
  *                   type: string
  *                   example: https://api.openai.com/v1/download
  */
+const secret_key = 'bC&5tP!mHs8yKw@uVwZ1r-9zJ3#56qzM1';
+app.get('/api/get-api-key/openai', (req, res) => {
+  const userId = 'wanzofc'; 
+  const apiKey = jwt.sign({ userId }, secret_key, { expiresIn: '1h' });
+  const response = {
+    platform: 'openai',
+    apiKey: apiKey,
+    downloadUrl: 'https://api.openai.com/v1/engines/davinci/completions', // Contoh URL API OpenAI
+  };
+  res.json(response);
+});
+
+app.post('/api/use-api-key/openai', (req, res) => {
+  const token = req.headers['x-api-key']; 
+  if (!token) {
+    return res.status(401).json({ error: 'API key is required' });
+  }
+  try {
+    const decoded = jwt.verify(token, secret_key); 
+    console.log('Authenticated User:', decoded.userId); 
+    const prompt = req.body.prompt || "Hello, OpenAI!";
+    res.json({ result: `Response from OpenAI for prompt: "${prompt}"` });
+  } catch (error) {
+    res.status(401).json({ error: 'Invalid API key' });
+  }
+});
 app.get('/api/v1/get-api-key/twitter', (req, res) => {
   const apiKey = "v1-wanzofc";
   const response = {

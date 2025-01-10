@@ -278,7 +278,7 @@ app.get('/api/v1/get-api-key/openai', (req, res) => {
 });
 
 // Endpoint untuk menggunakan API key OpenAI
-app.post('/api/v1/use-api-key/openai', (req, res) => {
+app.get('/api/v1/get-api-key/openai', (req, res) => {
   const token = req.headers['x-api-key']; 
   if (!token) {
     return res.status(401).json({ error: 'API key is required' });

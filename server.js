@@ -212,11 +212,57 @@ app.get('/api/get-api-key/instagram', (req, res) => {
  *                   example: openai
  *                 apiKey:
  *                   type: string
- *                   example: wanzofc_openai
+ *                   example: wanzofc_openai_123456
  *                 downloadUrl:
  *                   type: string
  *                   example: https://api.openai.com/v1/engines/davinci/completions
  */
+
+/**
+ * @swagger
+ * /api/v1/use-api-key/openai:
+ *   post:
+ *     description: Use the generated API key to access OpenAI API
+ *     parameters:
+ *       - in: header
+ *         name: x-api-key
+ *         description: The API key for authenticating the request
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               prompt:
+ *                 type: string
+ *                 example: "Hello, OpenAI!"
+ *     responses:
+ *       200:
+ *         description: Response from OpenAI API
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: "Response from OpenAI for prompt: 'Hello, OpenAI!'"
+ *       401:
+ *         description: Invalid API key or missing API key
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Invalid API key"
+ */
+
 const secret_key = 'bC&5tP!mHs8yKw@uVwZ1r-9zJ3#56qzM1';
 app.get('/api/get-api-key/openai', (req, res) => {
   const userId = 'wanzofc'; 

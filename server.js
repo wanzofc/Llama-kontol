@@ -151,6 +151,30 @@ app.get('/api/v1/get-api-key/instagram', (req, res) => {
   };
   res.json(response);
 });
+// API untuk mendapatkan API key Instagram
+/**
+ * @swagger
+ * /api/v2/get-api-key/instagram:
+ *   get:
+ *     description: Get API Key for Instagram
+ *     responses:
+ *       200:
+ *         description: A JSON object with Instagram API key
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 platform:
+ *                   type: string
+ *                   example: instagram
+ *                 apiKey:
+ *                   type: string
+ *                   example: wanzofc
+ *                 downloadUrl:
+ *                   type: string
+ *                   example: https://api.instagram.com/v2/download
+ */
 app.get('/api/v2/get-api-key/instagram', (req, res) => {
   const apiKey = "v2-wanzofc";
   const response = {

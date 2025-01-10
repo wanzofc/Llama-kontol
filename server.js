@@ -230,6 +230,7 @@ app.get('/api/get-api-key/instagram', (req, res) => {
  *         required: true
  *         schema:
  *           type: string
+ *           example: wanzofc_openai_123456
  *     requestBody:
  *       required: true
  *       content:
@@ -263,7 +264,9 @@ app.get('/api/get-api-key/instagram', (req, res) => {
  *                   example: "Invalid API key"
  */
 const secret_key = 'bC&5tP!mHs8yKw@uVwZ1r-9zJ3#56qzM1';
-app.get('/api/get-api-key/openai', (req, res) => {
+
+// Endpoint untuk mendapatkan API key OpenAI
+app.get('/api/v1/get-api-key/openai', (req, res) => {
   const userId = 'wanzofc'; 
   const apiKey = jwt.sign({ userId }, secret_key, { expiresIn: '1h' });
   const response = {
@@ -274,7 +277,8 @@ app.get('/api/get-api-key/openai', (req, res) => {
   res.json(response);
 });
 
-app.post('/api/use-api-key/openai', (req, res) => {
+// Endpoint untuk menggunakan API key OpenAI
+app.post('/api/v1/use-api-key/openai', (req, res) => {
   const token = req.headers['x-api-key']; 
   if (!token) {
     return res.status(401).json({ error: 'API key is required' });

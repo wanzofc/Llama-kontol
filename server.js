@@ -262,7 +262,6 @@ app.get('/api/get-api-key/instagram', (req, res) => {
  *                   type: string
  *                   example: "Invalid API key"
  */
-
 const secret_key = 'bC&5tP!mHs8yKw@uVwZ1r-9zJ3#56qzM1';
 app.get('/api/get-api-key/openai', (req, res) => {
   const userId = 'wanzofc'; 

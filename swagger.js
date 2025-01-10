@@ -13,7 +13,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "https://llama-kontol-production.up.railway.app/api",
+        url: "https://api.awanbrayy.web.id/api",
       },
     ],
   },

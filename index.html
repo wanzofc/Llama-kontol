@@ -89,10 +89,10 @@
             document.body.appendChild(notification);
             setTimeout(() => {
                 notification.style.opacity = 0;
-            }, 2000);
+            }, 200);
             setTimeout(() => {
                 notification.remove();
-            }, 2500);
+            }, 200);
         }
         showProgressiveNotification("welcome to api wanzofc!");
         if (window.matchMedia('(display-mode: standalone)').matches) {
@@ -141,6 +141,21 @@
     }
 </script>
 <script>
+    if (!navigator.onLine) {
+        const offlineMessage = document.createElement('div');
+        offlineMessage.style.position = 'fixed';
+        offlineMessage.style.bottom = '0';
+        offlineMessage.style.width = '100%';
+        offlineMessage.style.backgroundColor = '#ff5722';
+        offlineMessage.style.color = 'white';
+        offlineMessage.style.textAlign = 'center';
+        offlineMessage.style.padding = '10px 0';
+        offlineMessage.style.zIndex = '1000';
+        offlineMessage.textContent = 'Anda sedang offline. Beberapa fitur mungkin tidak berfungsi.';
+        document.body.appendChild(offlineMessage);
+    }
+</script>
+<script>
 let requestCount = 0;
 const maxRequests = 1000;  
 const apiResultDiv = document.getElementById('api-result-content');
@@ -166,23 +181,6 @@ loadApiBtn.addEventListener('click', () => {
         });
 });
 </script>
-<script>
-    // Periksa koneksi internet
-    if (!navigator.onLine) {
-        const offlineMessage = document.createElement('div');
-        offlineMessage.style.position = 'fixed';
-        offlineMessage.style.bottom = '0';
-        offlineMessage.style.width = '100%';
-        offlineMessage.style.backgroundColor = '#ff5722';
-        offlineMessage.style.color = 'white';
-        offlineMessage.style.textAlign = 'center';
-        offlineMessage.style.padding = '10px 0';
-        offlineMessage.style.zIndex = '1000';
-        offlineMessage.textContent = 'Anda sedang offline. Beberapa fitur mungkin tidak berfungsi.';
-        document.body.appendChild(offlineMessage);
-    }
-</script>
-    
 </body>
 </html>
             

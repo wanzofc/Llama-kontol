@@ -193,6 +193,29 @@ app.get('/api/get-api-key/instagram', (req, res) => {
   };
   res.json(response);
 });
+/**
+ * @swagger
+ * /api/v1/get-api-key/openai:
+ *   get:
+ *     description: Get API Key for OpenAI
+ *     responses:
+ *       200:
+ *         description: A JSON object with OpenAI API key
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 platform:
+ *                   type: string
+ *                   example: openai
+ *                 apiKey:
+ *                   type: string
+ *                   example: wanzofc_openai
+ *                 downloadUrl:
+ *                   type: string
+ *                   example: https://api.openai.com/v1/download
+ */
 app.get('/api/v1/get-api-key/twitter', (req, res) => {
   const apiKey = "v1-wanzofc";
   const response = {

@@ -196,133 +196,171 @@
     <source src="https://files.catbox.moe/9jrbom.mp3';" type="audio/mp3">
     Browser Anda tidak mendukung elemen audio.
 </audio>
-    <script>
-    function redirectWithLoading(url) {
-        document.getElementById('loading-spinner').style.display = 'block';
-        setTimeout(() => {
-            window.location.href = url;
-        }, 2000);
-    }
-    function showNotification(platform) {
-        alert(`Redirecting to get ${platform} API key...`);
-    }
-    const sidebar = document.getElementById("sidebar");
-    const sidebarContent = document.getElementById("sidebar-content");
-    sidebar.addEventListener("click", () => {
-        sidebarContent.style.display =
-            sidebarContent.style.display === "block" ? "none" : "block";
-    });
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-    });
-    window.addEventListener('scroll', () => {
-        const reveals = document.querySelectorAll('.reveal');
-        reveals.forEach((reveal) => {
-            const windowHeight = window.innerHeight;
-            const elementTop = reveal.getBoundingClientRect().top;
-            if (elementTop < windowHeight - 150) {
-                reveal.classList.add('show');
-            } else {
-                reveal.classList.remove('show');
-            }
-        });
-    });
-    function showProgressiveNotification(message) {
-        const notification = document.createElement('div');
-        notification.style.position = 'fixed';
-        notification.style.bottom = '20px';
-        notification.style.left = '20px';
-        notification.style.backgroundColor = '#007bff';
-        notification.style.color = 'white';
-        notification.style.padding = '10px';
-        notification.style.borderRadius = '5px';
-        notification.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)';
-        notification.innerText = message;
-        document.body.appendChild(notification);
-        setTimeout(() => {
-            notification.style.opacity = 0;
-        }, 2000);
+    <scrip>
+    // Redirect with Loading Spinner
+function redirectWithLoading(url) {
+    document.getElementById('loading-spinner').style.display = 'block';
+    setTimeout(() => {
+        window.location.href = url;
+    }, 2000);
+}
 
-        setTimeout(() => {
-            notification.remove();
-        }, 2500);
-    }
-    showProgressiveNotification("Welcome to API Wanzofc!");
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-    } else {
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            const installButton = document.createElement('button');
-            installButton.textContent = 'Install App';
-            document.body.appendChild(installButton);
-            installButton.addEventListener('click', () => {
-                e.prompt();
-                installButton.style.display = 'none';
-            });
-        });
-    }
-    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        recognition.lang = 'id-ID';
-        recognition.continuous = true;
-        recognition.onstart = () => {
-            console.log("Voice recognition started");
-        };
-        recognition.onresult = (event) => {
-            const speechResult = event.results[event.results.length - 1][0].transcript.toLowerCase();
-            console.log("Speech result:", speechResult);
-            handleVoiceCommand(speechResult);
-        };
-        recognition.onerror = (event) => {
-            console.log("Speech recognition error:", event.error);
-        };
-        recognition.start();
-        function handleVoiceCommand(command) {
-            if (command.includes("buka sidebar")) {
-                toggleSidebar();
-            } else if (command.includes("buka apikey satu persatu")) {
-                openApiKeys();
-            } else if (command.includes("ubah tema")) {
-                toggleTheme();
-            } else {
-                console.log("Perintah tidak dikenali: ", command);
-            }
-        }
-        function toggleSidebar() {
-            sidebarContent.style.display =
-                sidebarContent.style.display === "block" ? "none" : "block";
-            console.log("Sidebar toggled");
-        }
-        function openApiKeys() {
-            showNotification("tiktok");
-            showNotification("instagram");
-            showNotification("youtube");
-            showNotification("twitter");
-            showNotification("facebook");
-            console.log("API keys opened one by one");
-        }
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            console.log("Theme toggled");
-        }
-    } else {
-        console.log("Speech recognition is not supported in this browser");
-    }
+// Show Notification for API Key Redirection
+function showNotification(platform) {
+    alert(`Redirecting to get ${platform} API key...`);
+}
 
-</script>
+// Sidebar Toggle
+const sidebar = document.getElementById("sidebar");
+const sidebarContent = document.getElementById("sidebar-content");
+
+sidebar.addEventListener("click", () => {
+    sidebarContent.style.display = sidebarContent.style.display === "block" ? "none" : "block";
+});
+
+// Theme Toggle (Dark Mode)
+const themeToggle = document.getElementById('theme-toggle');
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});
+
+// Scroll Reveal Animation
+window.addEventListener('scroll', () => {
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach((reveal) => {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveal.getBoundingClientRect().top;
+        if (elementTop < windowHeight - 150) {
+            reveal.classList.add('show');
+        } else {
+            reveal.classList.remove('show');
+        }
+    });
+});
 <script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('service-worker.js')
+// Progressive Notification (Real-Time)
+function showProgressiveNotification(message) {
+    const notification = document.createElement('div');
+    notification.style.position = 'fixed';
+    notification.style.bottom = '20px';
+    notification.style.left = '20px';
+    notification.style.backgroundColor = '#007bff';
+    notification.style.color = 'white';
+    notification.style.padding = '10px';
+    notification.style.borderRadius = '5px';
+    notification.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)';
+    notification.innerText = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.style.opacity = 0;
+    }, 2000);
+
+    setTimeout(() => {
+        notification.remove();
+    }, 2500);
+}
+showProgressiveNotification("Welcome to API Wanzofc!");
+
+// PWA Installation Prompt
+if (window.matchMedia('(display-mode: standalone)').matches) {
+    // The app is already in standalone mode (PWA)
+} else {
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        const installButton = document.createElement('button');
+        installButton.textContent = 'Install App';
+        document.body.appendChild(installButton);
+        installButton.addEventListener('click', () => {
+            e.prompt();
+            installButton.style.display = 'none';
+        });
+    });
+}
+
+// Voice Recognition for Command Input
+if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'id-ID';
+    recognition.continuous = true;
+
+    recognition.onstart = () => {
+        console.log("Voice recognition started");
+    };
+
+    recognition.onresult = (event) => {
+        const speechResult = event.results[event.results.length - 1][0].transcript.toLowerCase();
+        console.log("Speech result:", speechResult);
+        handleVoiceCommand(speechResult);
+    };
+
+    recognition.onerror = (event) => {
+        console.log("Speech recognition error:", event.error);
+    };
+
+    recognition.start();
+
+    function handleVoiceCommand(command) {
+        if (command.includes("buka sidebar")) {
+            toggleSidebar();
+        } else if (command.includes("buka apikey satu persatu")) {
+            openApiKeys();
+        } else if (command.includes("ubah tema")) {
+            toggleTheme();
+        } else {
+            console.log("Perintah tidak dikenali:", command);
+        }
+    }
+
+    function toggleSidebar() {
+        sidebarContent.style.display = sidebarContent.style.display === "block" ? "none" : "block";
+        console.log("Sidebar toggled");
+    }
+
+    function openApiKeys() {
+        showNotification("tiktok");
+        showNotification("instagram");
+        showNotification("youtube");
+        showNotification("twitter");
+        showNotification("facebook");
+        console.log("API keys opened one by one");
+    }
+
+    function toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+        console.log("Theme toggled");
+    }
+} else {
+    console.log("Speech recognition is not supported in this browser");
+}
+
+// Service Worker for Offline Support (PWA)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
             .then((registration) => {
                 console.log('Service Worker registered with scope:', registration.scope);
             })
             .catch((error) => {
                 console.log('Service Worker registration failed:', error);
             });
-        });
-    }
-</script>
+    });
+}
+
+// Auto-Suggest API Key (Example with Console Log)
+function autoSuggestApiKey(platform) {
+    const suggestions = {
+        tiktok: 'TikTok API Key Suggestion',
+        instagram: 'Instagram API Key Suggestion',
+        youtube: 'YouTube API Key Suggestion',
+        twitter: 'Twitter API Key Suggestion',
+        facebook: 'Facebook API Key Suggestion',
+    };
+    console.log(`Suggested API Key for ${platform}: ${suggestions[platform]}`);
+}
+
+// Example of triggering auto-suggest
+autoSuggestApiKey('youtube');
+ </script>
 </body>
 </html>

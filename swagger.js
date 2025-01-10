@@ -13,7 +13,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:8080/api",
+        url: "https://llama-kontol-production.up.railway.app/api",
       },
     ],
   },

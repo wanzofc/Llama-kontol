@@ -2,7 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const path = require('path');
 const fs = require('fs');
-const swaggerDocs = require('./swagger'); // Swagger Docs
+const swaggerDocs = require('./swagger');
 const swaggerUi = require('swagger-ui-express');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
@@ -16,6 +16,19 @@ const apiLimiter = rateLimit({
   max: 1000,
   message: "Terlalu banyak permintaan dari IP ini, coba lagi setelah 15 menit",
 });
+let requestCount = 0; 
+const maxRequests = 1000;
+app.get('/get-api-data', (req, res) => {
+    if (requestCount >= maxRequests) {
+        return res.status(429).json({ message: 'Batas permintaan API tercapai.tunggu 15 menit.' });
+    }
+    requestCount++;
+    const apiData = {
+        message: 'Data berhasil diambil!',
+        data: { key: 'value' },
+    };
+    res.json(apiData);
+})
 app.use('/api/', apiLimiter);
 app.use(express.static(path.join(__dirname)));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));

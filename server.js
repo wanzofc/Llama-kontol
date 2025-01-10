@@ -424,10 +424,10 @@ app.get('/api/postman-collection', (req, res) => {
     ]
   };
 
-  res.json(postmanCollection); // Kirimkan koleksi Postman dalam bentuk JSON
+  res.json({ collection: postmanCollection });
 });
 
-// Menjalankan server pada port 8080
+// Menjalankan server di port 8080
 app.listen(port, () => {
   console.log(`Server berjalan di http://localhost:${port}`);
 });

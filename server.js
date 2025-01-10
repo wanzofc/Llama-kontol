@@ -220,7 +220,7 @@ app.get('/api/get-api-key/instagram', (req, res) => {
 
 /**
  * @swagger
- * /api/v1/use-api-key/openai:
+ * /api/v1/get-api-key/openai:
  *   post:
  *     description: Use the generated API key to access OpenAI API
  *     parameters:
@@ -230,7 +230,7 @@ app.get('/api/get-api-key/instagram', (req, res) => {
  *         required: true
  *         schema:
  *           type: string
- *           example: wanzofc_openai_123456
+ *           example: wanzofc-bro
  *     requestBody:
  *       required: true
  *       content:

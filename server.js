@@ -215,7 +215,7 @@ app.get('/api/get-api-key/instagram', (req, res) => {
  *                   example: wanzofc_openai
  *                 downloadUrl:
  *                   type: string
- *                   example: https://api.openai.com/v1/download
+ *                   example: https://api.openai.com/v1/engines/davinci/completions
  */
 const secret_key = 'bC&5tP!mHs8yKw@uVwZ1r-9zJ3#56qzM1';
 app.get('/api/get-api-key/openai', (req, res) => {

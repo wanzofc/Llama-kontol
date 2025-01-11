@@ -332,6 +332,110 @@ app.get('/api/get-api-key/twitter', (req, res) => {
   };
   res.json(response);
 });
+/**
+ * @swagger
+ * /api/v1/get-api-key/virtual-sim:
+ *   get:
+ *     description: Get API Key for Virtual SIM
+ *     responses:
+ *       200:
+ *         description: A JSON object with Virtual SIM API key
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 platform:
+ *                   type: string
+ *                   example: nokos
+ *                 apiKey:
+ *                   type: string
+ *                   example: v1-wanzofc-otp
+ *                 serviceUrl:
+ *                   type: string
+ *                   example: https://api.virtualsim.com/v1/sms
+ */
+app.get('/api/v1/get-api-key/virtual-sim', (req, res) => {
+  const apiKey = "v1-wanzofc-virtual-sim";
+  const response = {
+    platform: "virtual-sim",
+    apiKey: apiKey,
+    serviceUrl: "https://api.virtualsim.com/v1/sms",
+  };
+  res.json(response);
+});
+
+// Endpoint untuk menggunakan API Virtual SIM
+/**
+ * @swagger
+ * /api/v1/use-api/virtual-sim:
+ *   post:
+ *     description: Use the Virtual SIM API to send or receive SMS
+ *     parameters:
+ *       - in: header
+ *         name: x-api-key
+ *         description: The API key for authenticating the request
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: v1-wanzofc-virtual-sim
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               phoneNumber:
+ *                 type: string
+ *                 example: "+1234567890"
+ *               message:
+ *                 type: string
+ *                 example: "Hello from Virtual SIM!"
+ *     responses:
+ *       200:
+ *         description: Response from Virtual SIM API
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: "success"
+ *                 message:
+ *                   type: string
+ *                   example: "SMS sent successfully!"
+ *       401:
+ *         description: Invalid API key or missing API key
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Invalid API key"
+ */
+app.post('/api/v1/use-api/virtual-sim', (req, res) => {
+  const token = req.headers['x-api-key']; 
+  if (!token || token !== 'v1-wanzofc-virtual-sim') {
+    return res.status(401).json({ error: 'Invalid API key' });
+  }
+
+  const { phoneNumber, message } = req.body;
+  if (!phoneNumber || !message) {
+    return res.status(400).json({ error: 'Phone number and message are required' });
+  }
+
+  // Simulasi pengiriman SMS (bisa disesuaikan dengan layanan nyata)
+  const response = {
+    status: "success",
+    message: `SMS sent successfully to ${phoneNumber} with message: "${message}"`,
+  };
+  res.json(response);
+});
+
 app.get('/api/v1/get-api-key/facebook', (req, res) => {
   const apiKey = "v1-wanzofc";
   const response = {

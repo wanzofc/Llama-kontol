@@ -62,21 +62,13 @@
     <div id="api-result-content"></div>
     <button class="btn btn-outline-primary mt-3" id="load-api-btn">Minta Data API</button>
   </div>
-<div class="position-fixed" style="top: 10px; left: 10px; z-index: 1050;">
-  <button class="btn btn-dark" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">☰</button>
-</div>
-<div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="sidebarLabel">Menu</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <a href="index.html" class="d-block py-2 text-dark">Home</a>
-    <a href="#" class="d-block py-2 text-dark">About</a>
-    <a href="kontak.html" class="d-block py-2 text-dark">Contact</a>
-    <button class="btn btn-primary w-100" id="theme-toggle">Switch Theme</button>
-  </div>
-</div>
+<div id="sidebar">☰</div>
+    <div id="sidebar-content">
+        <a href="index.html">Home</a>
+        <a href="#">About</a>
+        <a href="kontak.html">Contact</a>
+        <button id="theme-toggle">Switch Theme</button>
+    </div>
 </div>
 </div>
       <div id="loading-spinner" class="text-center my-4">

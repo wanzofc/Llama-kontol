@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sosial media wanzofc api</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+  href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+   <body style="margin: 0; height: 100vh; background: linear-gradient(to right, #ff7e5f, #feb47b); display: flex; justify-content: center; align-items: center; text-align: center; color: white;">
+      <style>
+     body {
+      margin: 0;
+      overflow: hidden;
+    }
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }    
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="parallax bg-secondary" style="height: 300px;"></div>
+  <div class="text-center mt-4">
+    <h1 class="fw-bold">Pilih API Key Sesuka Kamu</h1>
+    <p class="text-muted">Click a button to get an API key and download URL for the selected platform:</p>
+  </div>
+  <div class="container text-center my-4">
+    <div class="row">
+      <div class="col-md-4 my-2">
+        <button class="btn btn-primary w-100" onclick="showNotification('TikTok'); redirectWithLoading('/api/get-api-key/tiktok')">Get TikTok API Key</button>
+      </div>
+      <div class="col-md-4 my-2">
+        <button class="btn btn-success w-100" onclick="showNotification('Instagram'); redirectWithLoading('/api/get-api-key/instagram')">Get Instagram API Key</button>
+      </div>
+      <div class="col-md-4 my-2">
+        <button class="btn btn-danger w-100" onclick="showNotification('YouTube'); redirectWithLoading('/api/get-api-key/youtube')">Get YouTube API Key</button>
+      </div>
+      <div class="col-md-4 my-2">
+        <button class="btn btn-info w-100" onclick="showNotification('Twitter'); redirectWithLoading('/api/get-api-key/twitter')">Get Twitter API Key</button>
+      </div>
+      <div class="col-md-4 my-2">
+        <button class="btn btn-warning w-100" onclick="showNotification('Facebook'); redirectWithLoading('/api/get-api-key/facebook')">Get Facebook API Key</button>
+      </div>
+      <div class="col-md-4 my-2">
+        <button class="btn btn-dark w-100" onclick="showNotification('Postman'); redirectWithLoading('/api/postman-collection')">Get Postman Collection Key</button>
+      </div>
+      <div class="col-md-4 my-2">
+        <button class="btn btn-outline-primary w-100" onclick="showNotification('Facebook v1'); redirectWithLoading('/api/v1/get-api-key/facebook')">Get v1 Facebook Key</button>
+      </div>
+      <div class="col-md-4 my-2">
+        <button class="btn btn-outline-danger w-100" onclick="showNotification('TikTok v2'); redirectWithLoading('/api/v2/get-api-key/tiktok')">Get v2 TikTok Key</button>
+      </div>
+      <div class="col-md-4 my-2">
+        <button class="btn btn-outline-success w-100" onclick="showNotification('Instagram v1'); redirectWithLoading('/api/v1/get-api-key/instagram')">Get v1 Instagram Key</button>
+      </div>
+      <div class="col-md-4 my-2">
+        <button class="btn btn-outline-info w-100" onclick="showNotification('OpenAI v1'); redirectWithLoading('/api/v1/get-api-key/openai')">Get v1 OpenAI Key</button>
+      </div>
+      <div class="col-md-4 my-2">
+        <button class="btn btn-secondary w-100" onclick="window.location.href='/api-docs';">View API Documentation</button>
+      </div>
+    </div>
+  </div>
+  <div class="container text-center my-4">
+    <h3>API Result</h3>
+    <p id="loading-text">Tunggu...</p>
+    <div id="api-result-content"></div>
+    <button class="btn btn-outline-primary mt-3" id="load-api-btn">Minta Data API</button>
+  </div>
+<div id="sidebar">☰</div>
+    <div id="sidebar-content">
+        <a href="index.html">Home</a>
+        <a href="#">About</a>
+        <a href="kontak.html">Contact</a>
+        <button id="theme-toggle">Switch Theme</button>
+    </div>
+</div>
+</div>
+      <div id="loading-spinner" class="text-center my-4">
+      <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+ <video autoplay muted loop>
+    <source src="https://upcdn.io/kW15cM4/raw/uploads/2025/01/11/4k4nQcy2AP-VID-20250111-WA0054.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+ </video>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script  src="script.js"></script>
+</body>
+</html>
+            

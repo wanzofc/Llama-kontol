@@ -588,6 +588,17 @@ app.get('/api/postman-collection', (req, res) => {
 
   res.json({ collection: postmanCollection });
 });
+app.post('/signup', (req, res) => {
+    // Tangani pendaftaran pengguna di sini
+    res.json({ success: true });
+});
+
+// Endpoint untuk login
+app.post('/login', (req, res) => {
+    // Tangani login di sini
+    res.json({ success: true });
+});
+
 
 app.listen(port, () => {
   console.log(`Server berjalan di http://localhost:${port}`);

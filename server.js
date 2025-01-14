@@ -11,6 +11,32 @@ const port = 8080;
 const app = express();
 app.use(morgan('combined'));
 app.use(express.json());
+const accountSid = 'ACe85d183b50de0e7e1d81d0e9ac370a44';
+const authToken = '9bdd10d7984046f7cbd66c5ca3597a09';
+const twilioPhoneNumber = '+62895402567224';
+
+const client = new twilio(accountSid, authToken);
+
+app.use(bodyParser.json());
+
+app.post('/send-sms', (req, res) => {
+  const { phone, code } = req.body;
+
+  client.messages
+    .create({
+      body: `Your verification code is: ${code}`,
+      from: twilioPhoneNumber,
+      to: phone,
+    })
+    .then((message) => {
+      console.log(message.sid);
+      res.json({ success: true });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.json({ success: false });
+    });
+});
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 1000,
